@@ -1,0 +1,43 @@
+<%- include('partials/header', { pageTitle: 'Add a book · Shelf Notes' }) %>
+
+<section class="form-page">
+    <a class="back-link" href="/" aria-label="Back to library">← <span>Library</span></a>
+    <div class="form-intro">
+        <p class="eyebrow">New addition</p>
+        <h1>Add a book to<br>your shelf.</h1>
+        <p>Start with the essentials. You can add more thoughts to it later.</p>
+    </div>
+
+    <form class="book-form" action="/add-book" method="post">
+        <div class="field-row">
+            <label>
+                <span>Title <b>*</b></span>
+                <input type="text" name="title" placeholder="e.g. Atomic Habits" required autocomplete="off">
+            </label>
+            <label>
+                <span>Author</span>
+                <input type="text" name="author" placeholder="e.g. James Clear" required autocomplete="off">
+            </label>
+        </div>
+        <div class="field-row">
+            <label>
+                <span>ISBN <b>*</b></span>
+                <input type="text" name="isbn" placeholder="For the cover image" inputmode="numeric" autocomplete="off">
+            </label>
+            <label>
+                <span>Recommend Score</span>
+                <input type="text" name="recommendation" placeholder="Between 0 & 10" autocomplete="off">
+            </label>
+        </div>
+        <label>
+            <span>Why this book?</span>
+            <textarea name="description" rows="5" placeholder="A short note about why you picked it up…"></textarea>
+        </label>
+        <div class="form-actions">
+            <a class="text-link" href="/">Cancel</a>
+            <button class="button button-primary" type="submit">Save to shelf <span aria-hidden="true">→</span></button>
+        </div>
+    </form>
+</section>
+
+<%- include('partials/footer') %>

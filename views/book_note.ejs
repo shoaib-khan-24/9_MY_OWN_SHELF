@@ -1,0 +1,60 @@
+<%- include('partials/header', { pageTitle: book.title + ' · Shelf Notes' }) %>
+
+<section class="notes-page">
+    <a class="back-link" href="/" aria-label="Back to library">← <span>Library</span></a>
+    <div class="book-header">
+        <div class="title-rule"></div>
+        <p class="eyebrow">Book notes</p>
+        <h1><%= book.title %></h1>
+        <p class="byline">by <%= book.author || 'Unknown author' %></p>
+        <div class="book-details">
+            <% if (book.recommendation) { %><span>Recommended it: <strong><%= book.recommendation %></strong></span><% } %>
+            <% if (book.book_date) { %><span>Added <strong><%= new Date(book.book_date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %></strong></span><% } %>
+        </div>
+        <div>
+            <p class="description-text"><%= book.description %></p>
+        </div>
+        
+    </div>
+
+
+
+    <section class="notes-list" aria-labelledby="notes-title">
+        <div class="notes-heading">
+            <h2 id="notes-title">Notes <span><%= notes.length %></span></h2>
+            <p>Highlights and ideas to revisit.</p>
+        </div>
+        <% if (notes.length) { %>
+            <% notes.forEach((note, index) => { %>
+                <article class="note-item">
+                    <span class="note-number"><%= index + 1 %></span>
+                    <div class="note-content">
+                        <p class="note-text"><%= note.note_text %></p>
+                        <div class="note-actions">
+                            <button style="padding-top: 2px;" class="note-action" type="button" data-edit-note-id="<%= note.id %>" data-edit-note-text="<%= note.note_text %>">Edit</button>
+                            <a href="/delete-note/<%= note.id %>"><button class="note-action" type="button" style="color: rgb(227, 110, 110);">Delete</button></a>
+                        </div>
+                    </div>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <div class="empty-notes"><span>✦</span><p>No notes yet. This page will grow with the book.</p></div>
+        <% } %>
+        <form class="add-note-form" action="/add-note/<%=bookId%>" method="post">
+            <label for="new-note">Add a note</label>
+            <textarea id="new-note" name="note_text" rows="4" placeholder="Write down an idea, quote, or reminder…" required></textarea>
+            <div class="note-form-actions"><span class="form-message" aria-live="polite"></span><button class="button button-primary" type="submit">Save note <span aria-hidden="true">→</span></button></div>
+        </form>
+    </section>
+</section>
+
+<dialog class="edit-note-dialog">
+    <form class="edit-note-form" method="dialog">
+        <div class="dialog-heading"><p class="eyebrow">Edit note</p><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+        <label for="edit-note-text">Your note</label>
+        <textarea id="edit-note-text" name="note_text" rows="6" required></textarea>
+        <div class="note-form-actions"><span class="form-message" aria-live="polite"></span><button class="button button-primary" type="submit">Save changes <span aria-hidden="true">→</span></button></div>
+    </form>
+</dialog>
+
+<%- include('partials/footer') %>

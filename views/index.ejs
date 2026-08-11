@@ -1,0 +1,53 @@
+<%- include('partials/header', { pageTitle: 'Your library · My Own Shelf' }) %>
+
+<section class="hero">
+    <p class="eyebrow">Personal reading library</p>
+    <div class="hero-row">
+        <div>
+            <h1>Books worth<br>returning to.</h1>
+            <p class="hero-copy">Keep the ideas, passages, and recommendations that stay with you.</p>
+        </div>
+        <a class="button button-primary" href="/new-book">Add a book <span aria-hidden="true">+</span></a>
+    </div>
+</section>
+
+<section class="library" aria-labelledby="library-title">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Collection</p>
+            <h2 id="library-title">Your shelf <span><%= books.length %></span></h2>
+        </div>
+    </div>
+
+    <% if (books.length) { %>
+        <div class="book-grid">
+            <% books.forEach((book, index) => { %>
+                <div class="book-entry">
+                    <a class="book-card" href="/note/<%= book.id %>">
+                        <div class="cover-wrap">
+                            <% if (book.isbn) { %>
+                                <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/<%= encodeURIComponent(book.isbn) %>-M.jpg" alt="Cover of <%= book.title %>" onerror="this.style.display='none'; this.nextElementSibling.hidden=false;">
+                            <% } %>
+                            <div class="cover-placeholder cover-<%= (index % 5) + 1 %>" <%= book.isbn ? 'hidden' : '' %> aria-hidden="true"><span><%= book.title ? book.title.charAt(0) : 'B' %></span></div>
+                        </div>
+                        <div class="book-meta">
+                            <p class="book-author"><%= book.author || 'Unknown author' %></p>
+                            <h3><%= book.title %></h3>
+                            <% if (book.recommendation) { %><p class="recommendation">Recommend it: <%= book.recommendation %>/10</p><% } %>
+                        </div>
+                    </a>
+                    <a href="/delete-book/<%= book.id %>"><button class="delete-book" type="button">Delete book</button></a>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <div class="empty-state">
+            <p class="eyebrow">Your shelf is empty</p>
+            <h2>Start with a book<br>you loved.</h2>
+            <p>Save a title now, then come back to add the ideas you want to remember.</p>
+            <a class="button button-primary" href="/new-book">Add your first book <span aria-hidden="true">+</span></a>
+        </div>
+    <% } %>
+</section>
+
+<%- include('partials/footer') %>
