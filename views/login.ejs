@@ -1,0 +1,31 @@
+<%- include("partials/header", { pageTitle: "Log in · Shelf Notes" }) %>
+
+<section class="form-page">
+    <div class="form-intro" style="margin-bottom: 20px;">
+        <p class="eyebrow">Welcome back</p>
+        <h1>Log In <br><span style="color: rgb(108, 107, 107);">To Your Account</span></h1>
+    </div>
+
+    <form class="book-form" action="/login" method="post">
+        <label>
+            <span>Email</span>
+            <input type="email" name="email" required>
+        </label>
+
+        <label>
+            <span>Password</span>
+            <input type="password" name="password" required>
+        </label>
+
+        <div class="form-actions">
+            <button class="button button-primary" type="submit">
+                Log in
+            </button>
+        </div>
+    </form>
+    <% if(error){ %>
+        <p class="form-error"><%= error %></p>
+    <% } %>
+</section>
+
+<%- include("partials/footer") %>

@@ -25,3 +25,7 @@ nav { display:flex; align-items:center; gap:24px; font-size:12px; font-weight:70
     font-family: 'Times New Roman', Times, serif;
     color: rgba(53, 46, 46, 0.865);
 }
+.form-error{
+    color: #D8000C;
+    font-weight: 400;
+}

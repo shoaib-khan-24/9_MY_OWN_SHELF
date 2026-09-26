@@ -1,0 +1,37 @@
+<%- include("partials/header", { pageTitle: "Sign up · Shelf Notes" }) %>
+
+<section class="form-page">
+    <div class="form-intro" style="margin-bottom: 20px;">
+        <p class="eyebrow">Create account</p>
+        <h1>Sign Up <br><span style="color: rgb(108, 107, 107);">With Email</span></h1>
+    </div>
+
+    <form class="book-form" action="/signup" method="post">
+        <label>
+            <span>Name</span>
+            <input type="text" name="name" required>
+        </label>
+
+        <label>
+            <span>Email</span>
+            <input type="email" name="email" required>
+        </label>
+
+        <label>
+            <span>Password</span>
+            <input type="password" name="password" minlength="6" required>
+        </label>
+
+        <div class="form-actions">
+            <button class="button button-primary" type="submit">
+                Create account
+            </button>
+        </div>
+    </form>
+
+    <% if(error){ %>
+        <p class="form-error"><%= error %></p>
+    <% } %>
+</section>
+
+<%- include("partials/footer") %>

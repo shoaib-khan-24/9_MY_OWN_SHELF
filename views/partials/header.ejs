@@ -14,8 +14,22 @@
     <header class="site-header">
         <a class="brand" href="/" aria-label="Shelf Notes home">MyOwn<span>Shelf</span></a>
         <nav aria-label="Main navigation">
-            <a href="/">Library</a>
-            <a class="button button-small" href="/new-book">Add a book <span aria-hidden="true">+</span></a>
+            <% if (userId) { %>
+                <span>Hi, <%= userName %></span>
+                <a href="/">Library</a>
+                <a class="button button-small" href="/new-book">
+                    Add a book <span aria-hidden="true">+</span>
+                </a>
+
+                <form action="/logout" method="post">
+                    <button class="note-action" type="submit">Log out</button>
+                </form>
+            <% } else { %>
+                <a href="/login">Log in</a>
+                <a class="button button-small" href="/signup">Sign up</a>
+            <% } %>
         </nav>
     </header>
     <main>
+
+
